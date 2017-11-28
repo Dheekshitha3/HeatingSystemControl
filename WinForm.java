@@ -5,7 +5,7 @@ public class WinForm extends JFrame {
 
     private Chart interiorChart;
     private Chart outdoorChart;
-    private JTextArea temperatures;
+    private TemperaturesArea temperArea;
 
     public WinForm() throws HeadlessException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -23,6 +23,10 @@ public class WinForm extends JFrame {
         outdoorChart = new Chart("Zewnętrzna temperatura", doubles, 5.0, 26.0,  Color.red);
         outdoorChart.setLocation(350,240);
         add(outdoorChart);
+
+        temperArea = new TemperaturesArea();
+        temperArea.setLocation(240,57);
+        add(temperArea);
 
     }
 }
