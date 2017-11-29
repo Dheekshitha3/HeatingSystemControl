@@ -6,6 +6,7 @@ public class WinForm extends JFrame {
     private Chart interiorChart;
     private Chart outdoorChart;
     private TemperaturesArea temperArea;
+    private JButton buttonStart;
 
     public WinForm() throws HeadlessException {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -14,7 +15,7 @@ public class WinForm extends JFrame {
         setResizable(false);
         setVisible(true);
 
-        double[] doubles = {10.0, 11.0, 14.0, 15.0, 22.0, 21.0, 20.0, 19.0, 18.0, 16.0, 12.0, 9.0, 9.0, 7.0};
+        double[] doubles = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 
         interiorChart = new Chart("Temperatura pomieszczenia", doubles, Color.BLUE);
         interiorChart.setLocation(350,40);
@@ -25,8 +26,21 @@ public class WinForm extends JFrame {
         add(outdoorChart);
 
         temperArea = new TemperaturesArea();
-        temperArea.setLocation(240,57);
+        temperArea.setLocation(240,42);
         add(temperArea);
 
+        buttonStart = new JButton("Start Simulation");
+        buttonStart.setBounds(350,500,160,30);
+        buttonStart.addActionListener(e -> {
+            setVisible(false);
+            remove(interiorChart);
+            interiorChart = new Chart("Temperatura pomieszczenia", temperArea.get(), Color.BLUE);
+            interiorChart.setLocation(350,40);
+            add(interiorChart);
+            setVisible(true);
+
+
+        });
+        add(buttonStart);
     }
 }

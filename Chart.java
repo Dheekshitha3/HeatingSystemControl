@@ -27,7 +27,7 @@ public class Chart extends JComponent implements Serializable {
         setSize(780,190);
 
         /* Convert received temperatures to points on chart */
-        lines = Convert.generateChartline(temperatures);
+        lines = Convert.generateChartline(temperatures, Arrays.stream(temperatures).min().getAsDouble()-5.0, Arrays.stream(temperatures).max().getAsDouble()+5.0);
 
         /* implements line with color */
         chartLine = new ChartLine(lines, color);
@@ -35,7 +35,7 @@ public class Chart extends JComponent implements Serializable {
         add(chartLine);
 
         /* implements label with temperatures from min do max */
-        labelsY = new LabelsY(Arrays.stream(temperatures).min().getAsDouble(), Arrays.stream(temperatures).max().getAsDouble());
+        labelsY = new LabelsY(Arrays.stream(temperatures).min().getAsDouble()-5.0, Arrays.stream(temperatures).max().getAsDouble()+5.0);
         labelsY.setLocation(10,30);
         add(labelsY);
 
@@ -129,7 +129,7 @@ public class Chart extends JComponent implements Serializable {
 
     class LabelsY extends JComponent{
 
-        public LabelsY(Double minV, Double maxV) {
+        public LabelsY(double minV, double maxV) {
             setSize(50,150);
             double div = (maxV-minV)/8;
             double value = minV;
