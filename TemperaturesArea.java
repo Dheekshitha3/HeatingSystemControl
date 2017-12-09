@@ -54,6 +54,11 @@ public class TemperaturesArea extends JComponent {
         return doubles;
     }
 
+    public void set(String[] power){
+        dataTextArea.setText(null);
+        for(String p : power) dataTextArea.append(p + "\n");
+    }
+
     public void loadData(){
         fileChooser = new JFileChooser();
         fileChooser.setFileFilter(

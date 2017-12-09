@@ -84,6 +84,40 @@ public class Chart extends JComponent implements Serializable {
 
     }
 
+
+    public Chart(String title, String[] power, String lowLabel, String highLabel, Color color) {
+
+        /* Set bounds and border with title component */
+        titledBorder = new TitledBorder(BorderFactory.createEtchedBorder(),title);
+        titledBorder.setTitlePosition(TitledBorder.ABOVE_TOP);
+        setBorder(titledBorder);
+        setSize(780,190);
+
+        /* Convert received temperatures to points on chart */
+        lines = Convert.generateChartline(power, lowLabel, highLabel);
+
+        /* implements line with color */
+        chartLine = new ChartLine(lines, color);
+        chartLine.setLocation(50,32);
+        add(chartLine);
+
+        /* implements label with temperatures from min do max */
+        labelsY = new LabelsY(lowLabel, highLabel);
+        labelsY.setLocation(10,30);
+        add(labelsY);
+
+        /* implements label with hours */
+        labelsX = new LabelsX();
+        labelsX.setLocation(30,155);
+        add(labelsX);
+
+        /* implements background chart */
+        backgroundChart = new BackgroundChart();
+        backgroundChart.setLocation(50,32);
+        add(backgroundChart);
+
+    }
+
     /* internal class - set line on chart */
     class ChartLine extends JComponent{
 
@@ -144,6 +178,19 @@ public class Chart extends JComponent implements Serializable {
                 posY-=15; // leading between labels
                 add(label);
             }
+        }
+
+        public LabelsY(String low, String high) {
+            setSize(50,150);
+            int posY = 115;
+            JLabel label1 = new JLabel(low, SwingConstants.RIGHT);
+            JLabel label2 = new JLabel(high, SwingConstants.RIGHT);
+            label1.setFont(new Font("Dialog", Font.BOLD, 9));
+            label2.setFont(new Font("Dialog", Font.BOLD, 9));
+            label1.setBounds(0,115,35,20);
+            label2.setBounds(0,0,35,20);
+            add(label1);
+            add(label2);
         }
     }
 
