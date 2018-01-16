@@ -85,7 +85,7 @@ public class Chart extends JComponent implements Serializable {
     }
 
 
-    public Chart(String title, String[] power, String lowLabel, String highLabel, Color color) {
+    public Chart(String title, String[] power, String[] valuesLabel, Color color) {
 
         /* Set bounds and border with title component */
         titledBorder = new TitledBorder(BorderFactory.createEtchedBorder(),title);
@@ -94,7 +94,7 @@ public class Chart extends JComponent implements Serializable {
         setSize(780,190);
 
         /* Convert received temperatures to points on chart */
-        lines = Convert.generateChartline(power, lowLabel, highLabel);
+        lines = Convert.generateChartline(power);
 
         /* implements line with color */
         chartLine = new ChartLine(lines, color);
@@ -102,8 +102,8 @@ public class Chart extends JComponent implements Serializable {
         add(chartLine);
 
         /* implements label with temperatures from min do max */
-        labelsY = new LabelsY(lowLabel, highLabel);
-        labelsY.setLocation(10,30);
+        labelsY = new LabelsY(valuesLabel);
+        labelsY.setLocation(5,20);
         add(labelsY);
 
         /* implements label with hours */
@@ -134,6 +134,7 @@ public class Chart extends JComponent implements Serializable {
         @Override
         public void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
+            g2.setStroke(new BasicStroke(2)); // grubość linii
             g2.setColor(color);
             for(Line2D l : lines){
                 g2.draw(l);
@@ -157,6 +158,11 @@ public class Chart extends JComponent implements Serializable {
             g2.setColor(Color.GRAY);
             g2.draw(new Rectangle2D.Double(0,0,699,124));
             g2.setColor(Color.BLACK);
+
+            g2.setColor(Color.lightGray);
+            for(int i=1; i<9; i++){
+                g2.draw(new Line2D.Double(0,15.5*i,699,15.5*i));
+            }
         }
     }
 
@@ -179,7 +185,6 @@ public class Chart extends JComponent implements Serializable {
                 add(label);
             }
         }
-
         public LabelsY(String low, String high) {
             setSize(50,150);
             int posY = 115;
@@ -191,6 +196,20 @@ public class Chart extends JComponent implements Serializable {
             label2.setBounds(0,0,35,20);
             add(label1);
             add(label2);
+        }
+
+        public LabelsY(String[] values) {
+            setSize(55,160);
+            int posY = 125;
+            double div = 30;
+            for(int i=0; i<values.length; i++){ // max value it labels which has been created on axis Y.
+                JLabel label = new JLabel("", SwingConstants.RIGHT);
+                label.setFont(new Font("Dialog", Font.BOLD, 9));
+                label.setText(values[i]);
+                label.setBounds(0,posY,40,20);
+                posY-=div; // leading between labels
+                add(label);
+            }
         }
     }
 

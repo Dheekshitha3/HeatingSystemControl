@@ -1,7 +1,9 @@
 import javax.swing.*;
+import java.awt.*;
 
 public class SimulationParametersArea extends JComponent {
 
+    /* Declaration labels and fields */
     private JLabel labelHeatPower;
     private JLabel labelInsulation;
     private JLabel labelArea;
@@ -15,7 +17,7 @@ public class SimulationParametersArea extends JComponent {
     private JTextField fieldHighOptimal;
     private JTextField fieldStartTemperature;
 
-    private JComboBox comboBoxInsulation;
+    private JComboBox comboBoxInsulation; // izolacja pomieszczenia.
 
     public SimulationParametersArea(){
         setSize(200,600);
@@ -28,6 +30,11 @@ public class SimulationParametersArea extends JComponent {
         fieldArea.setBounds(0,20,60,20);
         fieldArea.setHorizontalAlignment(SwingConstants.RIGHT);
         add(fieldArea);
+
+        JLabel opis1 = new JLabel("<html><br>Ustalona jest domyślna wartość</br><br>wysokości pomieszczenia na 2.5 metra.</br></html>");
+        opis1.setFont(new Font("Dialog", Font.PLAIN, 10));
+        opis1.setBounds(0,35,200,40);
+        add(opis1);
 
         JLabel mkw = new JLabel("m kw.");
         mkw.setBounds(65,20,50,20);
@@ -42,6 +49,12 @@ public class SimulationParametersArea extends JComponent {
         comboBoxInsulation.setSelectedIndex(0);
         comboBoxInsulation.setBounds(0,140,80,20);
         add(comboBoxInsulation);
+
+        JLabel opis2 = new JLabel("<html><br>Optymalna moc pieca dla pomieszczenia</br>" +
+                "<br>o powierzchni 100 m2 i dobrej</br><br>izolacji to w przybliżeniu 7,7 kW.</br></html>");
+        opis2.setFont(new Font("Dialog", Font.PLAIN, 10));
+        opis2.setBounds(0,175,200,60);
+        add(opis2);
 
         labelHeatPower = new JLabel("Moc pieca:");
         labelHeatPower.setBounds(0,240,200,15);
@@ -98,6 +111,7 @@ public class SimulationParametersArea extends JComponent {
 
     }
 
+    /* Method get choose value from combobox */
     public double getInsulation(){
         if(comboBoxInsulation.getSelectedIndex()==0) return 5.0;
         else if(comboBoxInsulation.getSelectedIndex()==1) return 10.0;
@@ -109,18 +123,22 @@ public class SimulationParametersArea extends JComponent {
         return Double.parseDouble(fieldStartTemperature.getText());
     }
 
+    /* Współczynnik ogrzewania pomieszczenia */
     public double getFactor(){
         return (Double.parseDouble(fieldHeatPower.getText())/Double.parseDouble(fieldArea.getText()))*14.0;
+        // moc pieca / powierzchnia * (14.0)
     }
 
     public double getMinTemp(){
         return Double.parseDouble(fieldMinTemperature.getText());
     }
 
+    /* return minimal optimal temperatures */
     public double getLowOpt(){
         return Double.parseDouble(fieldLowOptimal.getText());
     }
 
+    /* return highest optimal temperatures */
     public double getHighOpt(){
         return Double.parseDouble(fieldHighOptimal.getText());
     }

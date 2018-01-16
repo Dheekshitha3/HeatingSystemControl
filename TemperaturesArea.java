@@ -40,7 +40,7 @@ public class TemperaturesArea extends JComponent {
 
         buttonClear = new JButton("Clear");
         buttonClear.setBounds(0,435,90,25);
-        buttonClear.addActionListener(e -> dataTextArea.setText(null));
+        buttonClear.addActionListener(e -> dataTextArea.setText(null)); // cleaning dataTextArea.
         add(buttonClear);
     }
 
@@ -58,6 +58,8 @@ public class TemperaturesArea extends JComponent {
         dataTextArea.setText(null);
         for(String p : power) dataTextArea.append(p + "\n");
     }
+
+    /* Loading data of temperatures from txt file */
 
     public void loadData(){
         fileChooser = new JFileChooser();

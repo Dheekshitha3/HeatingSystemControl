@@ -34,6 +34,7 @@ public class WinForm extends JFrame {
         powerChart.setLocation(350,440);
         add(powerChart);
 
+        /* Panel z parametrami symulacji */
         simParamArea = new SimulationParametersArea();
         simParamArea.setLocation(20,42);
         add(simParamArea);
@@ -43,10 +44,11 @@ public class WinForm extends JFrame {
         temperArea.setLocation(240,42);
         add(temperArea);
 
-
+        /* Przycisk rozpoczynający symulacje */
         buttonStart = new JButton("Start Simulation");
         buttonStart.setBounds(170,595,160,30);
         buttonStart.addActionListener(e -> {
+            /* Wyświetlenie wykresu temperatury zewnętrznej */
             setVisible(false);
             remove(outdoorChart);
             outdoorChart = new Chart("Zewnętrzna temperatura", temperArea.get(), Color.BLUE);
@@ -54,6 +56,7 @@ public class WinForm extends JFrame {
             add(outdoorChart);
             setVisible(true);
 
+            /* Rozpoczęcie obliczania logiki rozmytej z pobranych danych */
             FuzzyLogic fuzzyLogic = new FuzzyLogic(simParamArea.getStartTemperature(),
                     temperArea.get(),
                     simParamArea.getInsulation(),
@@ -62,6 +65,7 @@ public class WinForm extends JFrame {
                     simParamArea.getLowOpt(),
                     simParamArea.getHighOpt());
 
+            /* Wyświetlenie wykresu temperatury pomiesczenia */
             setVisible(false);
             remove(interiorChart);
             interiorChart = new Chart("Temperatura pomieszczenia", fuzzyLogic.getTemp(), Color.RED);
@@ -69,9 +73,11 @@ public class WinForm extends JFrame {
             add(interiorChart);
             setVisible(true);
 
+            /* Wyświetlenie wykresu pracy pieca */
             setVisible(false);
             remove(powerChart);
-            powerChart = new Chart("Moc pieca grzewczego", fuzzyLogic.getPower(), "ZERO", "MAX", Color.GREEN);
+            String[] valuesLabel = {"ZERO", "LOW", "MEDIUM", "HIGH", "MAX"};
+            powerChart = new Chart("Moc pieca grzewczego", fuzzyLogic.getPower(), valuesLabel, Color.GREEN);
             powerChart.setLocation(350,440);
             add(powerChart);
             setVisible(true);
