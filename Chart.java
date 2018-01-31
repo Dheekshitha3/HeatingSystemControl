@@ -115,7 +115,6 @@ public class Chart extends JComponent implements Serializable {
         backgroundChart = new BackgroundChart();
         backgroundChart.setLocation(50,32);
         add(backgroundChart);
-
     }
 
     /* internal class - set line on chart */
@@ -201,12 +200,12 @@ public class Chart extends JComponent implements Serializable {
         public LabelsY(String[] values) {
             setSize(55,160);
             int posY = 125;
-            double div = 30;
+            double div = 31;
             for(int i=0; i<values.length; i++){ // max value it labels which has been created on axis Y.
                 JLabel label = new JLabel("", SwingConstants.RIGHT);
-                label.setFont(new Font("Dialog", Font.BOLD, 9));
+                label.setFont(new Font("Dialog", Font.BOLD, 8));
                 label.setText(values[i]);
-                label.setBounds(0,posY,40,20);
+                label.setBounds(0,posY,35,20);
                 posY-=div; // leading between labels
                 add(label);
             }

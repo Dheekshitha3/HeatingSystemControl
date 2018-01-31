@@ -7,11 +7,13 @@ public class SimulationParametersArea extends JComponent {
     private JLabel labelHeatPower;
     private JLabel labelInsulation;
     private JLabel labelArea;
+    private JLabel labelHeight;
     private JLabel labelOptimal;
     private JLabel labelStartTemperature;
 
     private JTextField fieldHeatPower;
     private JTextField fieldArea;
+    private JTextField fieldHeight;
     private JTextField fieldMinTemperature;
     private JTextField fieldLowOptimal;
     private JTextField fieldHighOptimal;
@@ -31,14 +33,22 @@ public class SimulationParametersArea extends JComponent {
         fieldArea.setHorizontalAlignment(SwingConstants.RIGHT);
         add(fieldArea);
 
-        JLabel opis1 = new JLabel("<html><br>Ustalona jest domyślna wartość</br><br>wysokości pomieszczenia na 2.5 metra.</br></html>");
-        opis1.setFont(new Font("Dialog", Font.PLAIN, 10));
-        opis1.setBounds(0,35,200,40);
-        add(opis1);
-
         JLabel mkw = new JLabel("m kw.");
         mkw.setBounds(65,20,50,20);
         add(mkw);
+
+        labelHeight = new JLabel("Wysokość:");
+        labelHeight.setBounds(0,45,200,15);
+        add(labelHeight);
+
+        fieldHeight = new JTextField("2.5");
+        fieldHeight.setBounds(0,65,60,20);
+        fieldHeight.setHorizontalAlignment(SwingConstants.RIGHT);
+        add(fieldHeight);
+
+        JLabel mh = new JLabel("m");
+        mh.setBounds(65,65,50,20);
+        add(mh);
 
         labelInsulation = new JLabel("Izolacja pomieszczenia:");
         labelInsulation.setBounds(0,120,200,15);
@@ -125,7 +135,7 @@ public class SimulationParametersArea extends JComponent {
 
     /* Współczynnik ogrzewania pomieszczenia */
     public double getFactor(){
-        return (Double.parseDouble(fieldHeatPower.getText())/Double.parseDouble(fieldArea.getText()))*14.0;
+        return (Double.parseDouble(fieldHeatPower.getText())/Double.parseDouble(fieldArea.getText()))*(35/Double.parseDouble(fieldHeight.getText()));
         // moc pieca / powierzchnia * (14.0)
     }
 

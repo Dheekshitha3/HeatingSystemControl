@@ -2,15 +2,13 @@ import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class TemperaturesArea extends JComponent {
 
     private JLabel label;
     private JTextArea dataTextArea;
-    private List<Double> list = new ArrayList<>();
+    //private List<Double> list = new ArrayList<>();
     private JScrollPane scrollPane;
     private JButton buttonLoad;
     private JButton buttonClear;
